@@ -5,10 +5,11 @@ print("Hello, World!")
 print("KBTU!")
 
 #3
-print(8 - 5)
+print(8.0 - 5)
 
 #4
-print("PP2 GPA 4.0! Claim!")
+a = "PP2 GPA 4.0! Claim!"
+print(a[-1])
 
 #5
 print("Done")

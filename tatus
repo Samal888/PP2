@@ -1,0 +1,42 @@
+[33mcommit 50430b306c414bc96dece83e47ee7925049fd391[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;33mtag: [m[1;33mv1[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: Samal888 <syrymsamal7@gmail.com>
+Date:   Fri Jan 30 01:38:34 2026 +0500
+
+    Add Python basics examples from W3Schools
+
+[33mcommit 3fae1017840ebe131f5b1aff45454ef01836df49[m
+Author: Samal888 <syrymsamal7@gmail.com>
+Date:   Fri Jan 30 01:35:37 2026 +0500
+
+    Add Practice2 - Python control flow examples (boolean, if-else, loops)
+
+[33mcommit 9f601079f9ff18575fc9c96efb342ced08c7cee8[m
+Author: Samal888 <syrymsamal7@gmail.com>
+Date:   Fri Jan 30 00:55:35 2026 +0500
+
+    Resolved merge conflicts
+
+[33mcommit 7d2f6b4275067ed9dde6c2ba846cf6f7a29ab1e5[m
+Merge: 5654e0b aba664b
+Author: Samal888 <syrymsamal7@gmail.com>
+Date:   Fri Jan 30 00:51:25 2026 +0500
+
+    Resolved merge conflicts
+
+[33mcommit 5654e0bed23a355587186a50e60304536638ff45[m
+Author: Samal888 <syrymsamal7@gmail.com>
+Date:   Fri Jan 30 00:38:42 2026 +0500
+
+    Add Python basics examples from W3Schools
+
+[33mcommit 07bb3ddac460291cd4c67a74efd7d9e5cbc39765[m
+Author: Samal888 <syrymsamal7@gmail.com>
+Date:   Thu Jan 29 23:55:03 2026 +0500
+
+    Practice01 in progress
+
+[33mcommit aba664b312cae84d027d6b6cdd8f14468c4d0751[m
+Author: Samal888 <syrymsamal7@gmail.com>
+Date:   Thu Jan 29 22:54:44 2026 +0500
+
+    Initial commit

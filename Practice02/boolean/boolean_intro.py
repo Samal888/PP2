@@ -14,7 +14,7 @@ print(5 > 3)   # True
 print(5 < 3)   # False
 
 #4
-print(10 >= 10)  # True
+print(10 >= 10) # True
 print(10 <= 5)   # False
 
 #5
