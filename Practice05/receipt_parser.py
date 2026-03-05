@@ -2,7 +2,7 @@ import re
 import json
 
 # open receipt file
-with open("raw.txt", "r") as f:
+with open("raw.txt", "r", encoding="utf-8") as f:
     text = f.read()
 
 print("----- RECEIPT DATA -----")
