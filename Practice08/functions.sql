@@ -1,6 +1,3 @@
--- functions.sql
-
--- функция поиска контактов по шаблону (имя или телефон)
 CREATE OR REPLACE FUNCTION get_contacts_by_pattern(p text)
 RETURNS TABLE(name text, phone text) AS $$
 BEGIN
@@ -12,7 +9,6 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
--- функция с пагинацией
 CREATE OR REPLACE FUNCTION get_contacts_paginated(p_limit INT, p_offset INT)
 RETURNS TABLE(name VARCHAR, phone VARCHAR) AS $$
 BEGIN

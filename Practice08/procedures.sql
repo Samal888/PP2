@@ -1,6 +1,3 @@
--- procedures.sql
-
--- вставка или обновление одного контакта
 CREATE OR REPLACE PROCEDURE upsert_contact(p_name VARCHAR, p_phone VARCHAR)
 LANGUAGE plpgsql AS $$
 BEGIN
@@ -12,7 +9,6 @@ BEGIN
 END;
 $$;
 
--- вставка нескольких контактов с проверкой телефона
 CREATE OR REPLACE PROCEDURE insert_many_contacts(p_names TEXT[], p_phones TEXT[])
 LANGUAGE plpgsql AS $$
 DECLARE
@@ -28,7 +24,7 @@ BEGIN
 END;
 $$;
 
--- удаление контакта по имени или телефону
+
 CREATE OR REPLACE PROCEDURE delete_contact(p_value VARCHAR)
 LANGUAGE plpgsql AS $$
 BEGIN

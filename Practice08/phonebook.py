@@ -1,36 +1,70 @@
-# phonebook.py
-
 from connect import get_connection
 
-conn = get_connection()
+def main():
+    conn = get_connection()
+    if not conn:
+        print("Ошибка подключения!")
+        return
 
-if conn:
     cur = conn.cursor()
 
-    # Вставка контактов
-    cur.execute("CALL upsert_contact(%s, %s);", ("Alice", "1234567890"))
-    cur.execute("CALL upsert_contact(%s, %s);", ("Bob", "9876543210"))
+    while True:
+        print("\n=== Телефонная книга ===")
+        print("1. Добавить/обновить контакт")
+        print("2. Добавить несколько контактов")
+        print("3. Поиск контакта")
+        print("4. Показать контакты с пагинацией")
+        print("5. Удалить контакт")
+        print("6. Выход")
 
-    # Вставка нескольких контактов
-    names = ["Charlie", "Diana"]
-    phones = ["111222333", "abc123"]  # второй телефон неверный
-    cur.execute("CALL insert_many_contacts(%s, %s);", (names, phones))
+        choice = input("Выберите действие (1-6): ")
 
-    # Поиск по шаблону
-    cur.execute("SELECT * FROM get_contacts_by_pattern(%s);", ("A",))
-    print("Поиск по шаблону 'A':")
-    for row in cur.fetchall():
-        print(row)
+        if choice == "1":
+            name = input("Введите имя: ")
+            phone = input("Введите телефон: ")
+            cur.execute("CALL upsert_contact(%s, %s);", (name, phone))
+            print(f"Контакт {name} добавлен/обновлён!")
 
-    # Пагинация
-    cur.execute("SELECT * FROM get_contacts_paginated(%s, %s);", (2, 0))
-    print("Пагинация (limit 2, offset 0):")
-    for row in cur.fetchall():
-        print(row)
+        elif choice == "2":
+            n = int(input("Сколько контактов добавить? "))
+            names = []
+            phones = []
+            for i in range(n):
+                nm = input(f"Имя {i+1}: ")
+                ph = input(f"Телефон {i+1}: ")
+                names.append(nm)
+                phones.append(ph)
+            cur.execute("CALL insert_many_contacts(%s, %s);", (names, phones))
 
-    # Удаление контакта
-    cur.execute("CALL delete_contact(%s);", ("Alice",))
+        elif choice == "3":
+            letter = input("Введите первую букву имени: ")
+            cur.execute("SELECT name, phone FROM contacts WHERE name ILIKE %s;", (letter + '%',))
+            for row in cur.fetchall():
+              print(row)
+
+        elif choice == "4":
+            limit = int(input("Сколько записей вывести: "))
+            offset = int(input("С какой записи начать: "))
+            cur.execute("SELECT * from get_contacts_paginated(%s, %s);", (limit, offset))
+            rows=cur.fetchall()
+            for row in rows:
+                print(row)
+
+        elif choice == "5":
+            del_id = input("Введите имя или телефон для удаления: ")
+            cur.execute("CALL delete_contact(%s);", (del_id,))
+            print(f"Контакт {del_id} удалён!")
+
+        elif choice == "6":
+            print("Выход...")
+            break
+
+        else:
+            print("Некорректный выбор, попробуйте снова!")
 
     conn.commit()
     cur.close()
     conn.close()
+
+if __name__ == "__main__":
+    main()

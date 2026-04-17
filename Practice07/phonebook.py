@@ -21,11 +21,10 @@ print("5 - Delete")
 
 choice = input("Choose: ")
 
-# 1. Добавить через консоль
+# 1. Добавить 
 if choice == "1":
     name = input("Name: ")
     phone = input("Phone: ")
-
     cur.execute(
         "INSERT INTO phonebook (name, phone) VALUES (%s, %s)",
         (name, phone)
@@ -45,7 +44,7 @@ elif choice == "2":
     conn.commit()
     print("CSV added!")
 
-# 3. Показать все
+# 3. Показать  
 elif choice == "3":
     cur.execute("SELECT * FROM phonebook")
     rows = cur.fetchall()
