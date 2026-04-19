@@ -3,24 +3,22 @@ from clock import MickeyClock
 
 pygame.init()
 
-screen = pygame.display.set_mode((800, 600))
-pygame.display.set_caption("Mickey Clock")
+W, H = 800, 800
+screen = pygame.display.set_mode((W, H))
 
 clock = pygame.time.Clock()
-mickey = MickeyClock()
+app = MickeyClock(W, H)
 
 running = True
 
 while running:
-    screen.fill((255, 255, 255))
-
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
-    mickey.draw(screen)
+    app.draw(screen)
 
     pygame.display.flip()
-    clock.tick(1)  # обновление раз в секунду
+    clock.tick(60)
 
 pygame.quit()

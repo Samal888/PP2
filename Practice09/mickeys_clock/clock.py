@@ -1,26 +1,49 @@
 import pygame
 import datetime
+import os
 
 class MickeyClock:
-    def __init__(self):
-        self.hand = pygame.image.load("images/mickey_hand.png")
-        self.hand = pygame.transform.scale(self.hand, (150, 150))
+    def __init__(self, w, h):
+        self.center = (w // 2, h // 2)
+
+        base = os.path.dirname(__file__)
+        img = os.path.join(base, "images")
+
+        self.bg = pygame.image.load(os.path.join(img, "clock.png"))
+        self.bg = pygame.transform.scale(self.bg, (w, h))
+
+        self.body = pygame.image.load(os.path.join(img, "mickey.png")).convert_alpha()
+        self.body = pygame.transform.scale(self.body, (350, 450))
+        self.body_rect = self.body.get_rect(center=self.center)
+
+        self.min_hand = pygame.image.load(os.path.join(img, "right_hand.png")).convert_alpha()
+        self.min_hand = pygame.transform.scale(self.min_hand, (200, 300))
+
+        self.sec_hand = pygame.image.load(os.path.join(img, "left_hand.png")).convert_alpha()
+        self.sec_hand = pygame.transform.scale(self.sec_hand, (190, 280))
+
+    def rotate(self, surf, img, pos, pivot, angle):
+        rect = img.get_rect(topleft=(pos[0] - pivot[0], pos[1] - pivot[1]))
+        offset = pygame.math.Vector2(pos) - rect.center
+        offset = offset.rotate(-angle)
+        center = (pos[0] - offset.x, pos[1] - offset.y)
+
+        rot_img = pygame.transform.rotate(img, angle)
+        rot_rect = rot_img.get_rect(center=center)
+
+        surf.blit(rot_img, rot_rect)
 
     def draw(self, screen):
         now = datetime.datetime.now()
 
-        seconds = now.second
-        minutes = now.minute
+        sec_angle = -now.second * 6
+        min_angle = -now.minute * 6
 
-        # угол (360 градусов / 60)
-        sec_angle = -seconds * 6
-        min_angle = -minutes * 6
+        min_pivot = (self.min_hand.get_width() // 2, self.min_hand.get_height())
+        sec_pivot = (self.sec_hand.get_width() // 2, self.sec_hand.get_height())
 
-        sec_hand = pygame.transform.rotate(self.hand, sec_angle)
-        min_hand = pygame.transform.rotate(self.hand, min_angle)
+        screen.blit(self.bg, (0, 0))
+        screen.blit(self.body, self.body_rect)
 
-        rect = sec_hand.get_rect(center=(400, 300))
-        rect2 = min_hand.get_rect(center=(400, 300))
-
-        screen.blit(min_hand, rect2)
-        screen.blit(sec_hand, rect)
+        self.rotate(screen, self.min_hand, self.center, min_pivot, min_angle)
+        self.rotate(screen, self.sec_hand, self.center, sec_pivot, sec_angle)
